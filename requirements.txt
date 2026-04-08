@@ -1,0 +1,10 @@
+# Core
+numpy
+sounddevice        # requires portaudio: brew install portaudio (macOS)
+matplotlib
+
+# emotion2vec via FunASR
+funasr
+torch
+torchaudio
+modelscope         # model hub used by funasr
