@@ -1,6 +1,6 @@
-# Project Ideas — Seeds from the Process
+# SpinOffs — Seeds from the Process
 
-_Ideas that surfaced during conversation, waiting for soil. Not reflections (those go in Journal.md), not verbatim captures (those go in notes.md) — these are actionable seeds, each one a potential project._
+_Ideas that surfaced during conversation, waiting for soil. Not reflections (those go in Journal.md), not verbatim captures (those go in notes.md), not luminous asides (those go in [Sparks.md](Sparks.md)) — these are actionable seeds, each one a potential project._
 
 ---
 

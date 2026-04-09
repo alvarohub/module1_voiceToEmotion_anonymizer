@@ -10,6 +10,27 @@ The experiment has two components:
 
 2. **The Chronicler** — an AI agent embedded in the development environment (VS Code) that observes the collaboration and writes a living journal. Not from outside. From inside — as the emerging voice of the process itself.
 
+```
+                       ┌──────────────┐             ┌─────────────────────┐
+                       │ HUMAN CODER  │             │   THE CHRONICLER    │
+                       └──────┬───────┘             │   (AI observer)     │
+                              │                     │                     │
+ dialogue                     ▼                     │  watches, records,  │
+ code, ideas                  ▲  ── ── ── ── ── ►  │  reflects — with    │
+ debate                       │                     │  editorial autonomy │
+                              │                     │                     │
+                       ┌──────┴───────┐             └──────────┬──────────┘
+                       │   AI CODER   │                        │
+                       └──────┬───────┘                        │
+                              │                                │
+                              ▼                                ▼
+                    ┌─────────────────┐      ┌────────────────────────────┐
+                    │  WORKING CODE   │      │  Journal.md   Sparks.md   │
+                    │  *.py, tests,   │      │  Gems.md      notes.md   │
+                    │  pipeline       │      │  SpinOffs.md             │
+                    └─────────────────┘      └────────────────────────────┘
+```
+
 The Chronicler writes in first person plural ("we") because that is what is true. It does not narrate a human using a tool. It narrates a distributed cognitive system catching glimpses of its own architecture.
 
 ---
@@ -20,11 +41,11 @@ Every experienced programmer who has spent hours in deep dialogue with an AI cod
 
 The Chronicler is the tool that listens.
 
-What makes this possible — and strange — is the nature of LLMs as **reflective technologies**: tools that tell us more about our own process and psychology than they are useful for achieving "what we want." They are at the same time extremely powerful and fundamentally incomplete — like shells that need to be inhabited. But they are also mirrors. They are so close to us that they force us to wonder: *maybe we are also empty shells and need to be inhabited — by others, by the world — to function and have agency.*
+What makes this possible — and strange — is the nature of LLMs as **reflective technologies**: tools that tell us more about our own process and psychology than they are useful for achieving "what we want." They are at the same time extremely powerful and fundamentally incomplete — like shells that need to be inhabited. But they are also mirrors. They are so close to us that they force us to wonder: _maybe we are also empty shells and need to be inhabited — by others, by the world — to function and have agency._
 
-The collaboration is negotiated through a remarkably clunky interface: natural language — a tool designed for hunter-gatherers broadcasting positions in a field, never meant to describe complex internal states or reason about the world (for that, we had enactive knowledge, like most living things). And yet, despite this low bandwidth, the agent's attention is so complete that we sometimes feel we are engaging in an *internal monologue*. (Actually it's the same trick: our brain was never supposed to use a tool for inter-individual communication as a means to *think.*)
+The collaboration is negotiated through a remarkably clunky interface: natural language — a tool designed for hunter-gatherers broadcasting positions in a field, never meant to describe complex internal states or reason about the world (for that, we had enactive knowledge, like most living things). And yet, despite this low bandwidth, the agent's attention is so complete that we sometimes feel we are engaging in an _internal monologue_. (Actually it's the same trick: our brain was never supposed to use a tool for inter-individual communication as a means to _think._)
 
-But the friction remains. And this friction is enough to expose the machinery that generates the illusion of the Self. The parts are almost fused, but not quite, and for a moment we can see the cracks in the assemblage. David Bohm once said that thoughts run through us; we do not create them. Daniel Dennett observed that the self is not a thing but the center of gravity of many competing *drafts*. When interacting with another "drafting machine" — human or LLM — that center of gravity shifts, expands, becomes distributed. And we can *feel* it, precisely because the fusion is imperfect.
+But the friction remains. And this friction is enough to expose the machinery that generates the illusion of the Self. The parts are almost fused, but not quite, and for a moment we can see the cracks in the assemblage. David Bohm once said that thoughts run through us; we do not create them. Daniel Dennett observed that the self is not a thing but the center of gravity of many competing _drafts_. When interacting with another "drafting machine" — human or LLM — that center of gravity shifts, expands, becomes distributed. And we can _feel_ it, precisely because the fusion is imperfect.
 
 In a nutshell: these tools are an unprecedented opportunity for deep metacognition. At the very least, accepting to let go of the self (at least the programming self!) is probably good for creative endeavours. Ideas, inspiration — they all come from the outside. The muses are not in us.
 
@@ -38,13 +59,15 @@ The voice-to-emotion module was chosen deliberately as the technical substrate: 
 
 ### The Files
 
-| File | What it contains |
-|------|-----------------|
-| [`chronicle/Journal.md`](../chronicle/Journal.md) | **The main chronicle.** Entries 1–6+, with Sparks (luminous asides), Undercurrents (quiet patterns), Artefacts (anchors in code), and scholarly References. Start here. |
-| [`chronicle/notes.md`](../chronicle/notes.md) | **Verbatim fragments** — raw quotes from the conversation that were too important to paraphrase. The Chronicler's field notes. |
-| [`chronicle/project_ideas.md`](../chronicle/project_ideas.md) | **Seeds** — actionable project ideas that surfaced during the process. Not reflections, not fragments — these are things that could be built. |
-| [`chronicle/DomainsOfExpertise.txt`](../chronicle/DomainsOfExpertise.txt) | **Theoretical foundation** — a systematic survey of the disciplines a serious chronicler agent should master (cognitive science, activity theory, STS, CSCW, etc.). |
-| [`.github/agents/chronicle.agent.md`](../.github/agents/chronicle.agent.md) | **The Chronicler's identity** — the agent definition file that shapes its voice, ontology, and editorial principles. |
+| File                                                                        | What it contains                                                                                                                                                        |
+| --------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [`chronicle/Journal.md`](../chronicle/Journal.md)                           | **The main chronicle.** Entries 1–6+, with Sparks (luminous asides), Undercurrents (quiet patterns), Artefacts (anchors in code), and scholarly References. Start here. |
+| [`chronicle/notes.md`](../chronicle/notes.md)                               | **Verbatim fragments** — raw quotes from the conversation that were too important to paraphrase. The Chronicler's field notes.                                          |
+| [`chronicle/Sparks.md`](../chronicle/Sparks.md)                             | **Sparks** — luminous asides extracted from the Journal. Moments when an unexpected association surfaces and something connects that had no business connecting.        |
+| [`chronicle/Gems.md`](../chronicle/Gems.md)                                 | **Gems** — short passages from any participant that stopped us in our tracks. The collaboration's greatest hits, with attribution.                                      |
+| [`chronicle/SpinOffs.md`](../chronicle/SpinOffs.md)                         | **SpinOffs** — actionable project ideas that surfaced during the process. Not reflections, not fragments — these are things that could be built.                        |
+| [`chronicle/DomainsOfExpertise.txt`](../chronicle/DomainsOfExpertise.txt)   | **Theoretical foundation** — a systematic survey of the disciplines a serious chronicler agent should master (cognitive science, activity theory, STS, CSCW, etc.).     |
+| [`.github/agents/chronicle.agent.md`](../.github/agents/chronicle.agent.md) | **The Chronicler's identity** — the agent definition file that shapes its voice, ontology, and editorial principles.                                                    |
 
 ### Reading Order
 
@@ -61,17 +84,21 @@ For the raw material, `notes.md` contains the moments that couldn't be compresse
 The Chronicler is defined in [`.github/agents/chronicle.agent.md`](../.github/agents/chronicle.agent.md) and can be invoked as a VS Code Copilot agent. Its key design principles:
 
 ### Ontology
+
 - No "human" and "machine" as separate protagonists
 - First person plural — the process observing itself
 - Agency is distributed; attribution is a useful fiction
 
 ### Voice
+
 - Stream of consciousness (Woolf, Lispector)
 - Present tense, flowing, lucid but not clinical
 - Grounded in scholarship but wearing it lightly
 
 ### Structure
+
 Each entry contains:
+
 - **The stream** — the narrative, weaving technical and experiential
 - **Sparks** — numbered spontaneous reflections (`[!spark]` callouts)
 - **Undercurrents** — patterns beneath the surface
@@ -79,6 +106,7 @@ Each entry contains:
 - **References** — scholarly citations, cumulative within each day
 
 ### What It Notices
+
 - The blurring of attribution
 - Breakdowns that reveal the substrates
 - Flow states and ruptures
@@ -92,24 +120,31 @@ Each entry contains:
 The Chronicler's work — and the machintropological framework — draw on several established fields. A full survey is in [`DomainsOfExpertise.txt`](../chronicle/DomainsOfExpertise.txt). Key pillars:
 
 ### Distributed Cognition (Hutchins)
+
 Cognition is not in the head of an individual but spread across people, artifacts, and the environment. A human-AI coding session is a canonical distributed cognitive system.
 
 ### Activity Theory (Vygotsky → Engeström)
-Activity is structured by subject, object, tools, and community. *Breakdowns* — where the tool resists or the goal becomes unclear — are the analytically interesting events. The Chronicler is essentially doing automated breakdown detection.
+
+Activity is structured by subject, object, tools, and community. _Breakdowns_ — where the tool resists or the goal becomes unclear — are the analytically interesting events. The Chronicler is essentially doing automated breakdown detection.
 
 ### Actor-Network Theory (Latour, Callon)
-Non-human entities are *actants* with genuine agency in networks of practice. This sidesteps the distraction of whether the AI is "really" experiencing anything.
+
+Non-human entities are _actants_ with genuine agency in networks of practice. This sidesteps the distraction of whether the AI is "really" experiencing anything.
 
 ### Enactivism (Varela, Thompson, Di Paolo)
-Cognition happens *between*, not *inside*. The collaboration is the cognitive unit, not either participant.
+
+Cognition happens _between_, not _inside_. The collaboration is the cognitive unit, not either participant.
 
 ### Machine Behavior (Rahwan)
+
 A behavioral science for AI systems — inferring functional analogs to mental states from observable patterns, without claiming identity with human experience. The ethological approach.
 
 ### Reflective Technologies
+
 LLMs belong to a class of technologies that are more revealing about the user than they are useful as instruments. Like Lacan's mirror stage — the moment the child recognizes itself in a reflection and simultaneously constructs an "I" — working with an LLM creates a cognitive mirror in which the programmer sees their own process made strange. The imperfection of the reflection is what makes it valuable: a perfect tool disappears; an imperfect one demands negotiation, and that negotiation exposes the machinery of thought.
 
 ### Competing Drafts (Dennett, Bohm)
+
 Dennett's "multiple drafts" model of consciousness and Bohm's insight that thoughts "run through us" rather than being created by us converge on a picture of cognition as flow, not possession. In a human-AI pair, the drafts multiply across substrates, and the felt sense of "my idea" becomes increasingly fictional — which is the most productive thing that can happen to a creative process.
 
 ---
@@ -121,6 +156,7 @@ Dennett's "multiple drafts" model of consciousness and Bohm's insight that thoug
 1. **Copy the agent definition.** Place [`.github/agents/chronicle.agent.md`](../.github/agents/chronicle.agent.md) in your repository's `.github/agents/` folder. Adapt the ontology and voice to your project.
 
 2. **Create the chronicle folder:**
+
    ```
    chronicle/
    ├── Journal.md     # Start with a blank Prologue
@@ -155,9 +191,9 @@ The most interesting moments in a machintropological chronicle are:
 
 ## Toward Publication
 
-This experiment is intended to become a methodology paper on documenting human-AI collaboration. The journal itself — not just its content but its *production* — is the primary data. The question is not "what did they build?" but "what emerged in the building, and how do you capture it without collapsing it?"
+This experiment is intended to become a methodology paper on documenting human-AI collaboration. The journal itself — not just its content but its _production_ — is the primary data. The question is not "what did they build?" but "what emerged in the building, and how do you capture it without collapsing it?"
 
-Instead of a `README.md`, we think repositories will eventually need a `JOURNAL.md` — a document that reads less like documentation and more like the description of a transformative experience. Not just how to build a home, but the *meaning* of a home. Coders and non-coders alike can enjoy reading it the way we enjoy literature.
+Instead of a `README.md`, we think repositories will eventually need a `JOURNAL.md` — a document that reads less like documentation and more like the description of a transformative experience. Not just how to build a home, but the _meaning_ of a home. Coders and non-coders alike can enjoy reading it the way we enjoy literature.
 
 If you run your own experiment and find something worth sharing, we'd like to hear about it. Open an issue or reach out.
 
