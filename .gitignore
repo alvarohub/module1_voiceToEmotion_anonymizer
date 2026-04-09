@@ -7,4 +7,6 @@ output/
 dist/
 build/
 docs/emailDraft.txt
+docs/README_v1.md
+docs/fromReadmetoJournal_vibeCoding.pdf
 chronicle/chatSession_*.json

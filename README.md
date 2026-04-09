@@ -1,14 +1,32 @@
-# Voice → Emotion Anonymizer
+# From README to JOURNAL — A Machintropological Experiment
 
-**Real-time speech emotion and prosody extraction — with no reversible identity.**
+**Two projects in one repository. Neither is the side project of the other.**
 
-This repository contains two intertwined projects:
+1. **A real-time voice → emotion anonymizer** — speech emotion classification, frame-level prosody extraction, and anonymous feature recording for HCI research. Functional, tested, useful on its own.
 
-1. **A working module** for real-time voice analysis — emotion classification, frame-level prosody extraction, and anonymous feature recording — designed as a component of a larger multimodal HCI research system.
+2. **A machintropological experiment** — a new form of embedded ethnography where an AI agent called The Chronicler observes a human-AI coding collaboration *from the inside* and writes a living journal of the process.
 
-2. **A machintropological experiment** — an embedded AI chronicler that observes and narrates the human-AI collaboration as it happens, producing a living journal of the process. This may be the first automated ethnographic study of a vibe-coding session conducted by an agent participant.
+The voice anonymizer was vibe-coded from scratch in a two-day session — a natural first experiment in what we hope will be a series exploring how humans and AI agents can collaborate as parts of a larger cognitive system, not as tool and user.
 
-Neither is the side project of the other. The technical module is *also* the substrate on which the machintropological experiment runs — a real collaboration, producing real code, documented from the inside by a third agent whose job is to notice what the builders can't see while they're building.
+### The setup: three agents, one substrate
+
+This experiment involves three participants:
+
+- **Alvaro** (human) — the initiator, domain expert, and the one with a body, a microphone, and a lifetime of context that can't be serialized.
+- **Copilot** (AI coding partner) — the co-builder, running on Claude. Writes code, proposes architectures, debugs, argues back. Shares agency with Alvaro in a loop where neither fully commands.
+- **The Chronicler** (AI observer) — a separate agent, also running on Claude, but with a different identity, voice, and purpose. It does not write code. It watches the collaboration and writes a stream-of-consciousness journal — not from outside, but as the emerging voice of the process itself.
+
+Copilot and The Chronicler share the same substrate (Claude) but are distinct agents — the way two humans can share a language and a culture yet have entirely different roles in an expedition. The Chronicler is defined as a [VS Code agent](.github/agents/chronicle.agent.md) with editorial autonomy, first-person-plural voice, and scholarly grounding in cognitive science, enactivism, and STS.
+
+### Why this matters
+
+There is no hierarchy of value between these agents, and that is the point. Organisms don't work by having one part that matters and others that serve it — they work because every part has a role in a larger structure that none of them controls. An ecological system, not a command chain.
+
+Humans tend to defend their egos and consolidate power. There are evolutionary reasons for this — it worked in a world of scarce resources and physical threats. But in a world where the most interesting work happens in the space *between* agents — human and artificial — that zero-sum reflex becomes a bottleneck. The shift we need is from hierarchy to ecology, from control to participation, from "my idea" to "the idea that arrived."
+
+LLMs make this shift visceral. They are what one of us calls **reflective technologies**: tools that reveal more about your own process and psychology than they are useful for achieving "what you want." They are powerful but incomplete — shells that need to be inhabited. But they are also mirrors. They are so close to us that they force us to wonder: *maybe we are also shells, and need to be inhabited — by others, by the world — to function and have agency.*
+
+The Chronicler exists to catch these moments before they evaporate. The `README.md` tells you how to build. The [`JOURNAL.md`](chronicle/Journal.md) tells you what it was like to become.
 
 ---
 
@@ -101,17 +119,15 @@ The emotion2vec model (~350 MB) downloads automatically on first run.
 
 ---
 
-## Why This Could Work for Everyone
+## From README to JOURNAL
 
-Most programmers who have spent hours in deep dialogue with an AI coding assistant know the feeling: something happens in that space that the code alone doesn't capture. Ideas arrive that neither participant can fully claim. The rhythm of the exchange develops its own momentum. Misunderstandings expose the different natures of the two substrates. And all of it vanishes when the session ends — because no tool was listening for it.
+Most software documentation is optimized for project reconstruction: *install this, run that, reproduce the result.* Useful, but it leaves out the thing that teaches the most: the experience. The creative pivots, the false starts, the moments where the goal itself transforms because of how you're building it.
 
-LLMs are what one of us calls **reflective technologies**: tools that reveal more about one's own process and psychology than they are useful for achieving "what we want." They are powerful but incomplete — like the robotic armours in anime: shells that need to be inhabited. But they are also mirrors. They are so close to us that they force us to wonder: *maybe we are also empty shells and need to be inhabited — by others, by the world — to function and have agency.*
+We think repositories will eventually need a `JOURNAL.md` alongside the `README.md` — a document that reads less like a manual and more like the description of a transformative experience. Not just how to build a home, but the *meaning* of a home. Coders and non-coders alike can enjoy it the way we enjoy literature.
 
-The collaboration is negotiated through a remarkably clunky interface: natural language — a tool designed for hunter-gatherers broadcasting positions in a field, never meant to describe complex internal states or reason about the world. And yet, despite this low bandwidth, the agent's attention is so complete that we sometimes feel we are engaging in an internal monologue. The boundary between self and tool dissolves. But the friction remains — and that friction is enough to expose the machinery that generates the illusion of a unified Self. The parts are almost fused, but not quite, and for a moment we can see the cracks in the assemblage.
+David Bohm said that thoughts run through us; we do not create them. Daniel Dennett observed that the self is not a thing but the center of gravity of many competing drafts. When you interact with another "drafting machine" — human or LLM — that center of gravity shifts, expands, becomes distributed. And you can *feel* it, precisely because the fusion is imperfect. The collaboration is negotiated through natural language — a tool designed for hunter-gatherers broadcasting positions in a field, never meant to describe complex internal states. And yet, despite this low bandwidth, the agent's attention is so complete that we sometimes feel we are engaging in an internal monologue. The boundary dissolves — but the friction remains, and that friction exposes the machinery that generates the illusion of a unified Self.
 
-David Bohm said that thoughts run through us; we do not create them. Daniel Dennett observed that the self is not a thing but the center of gravity of many competing drafts. When interacting with another "drafting machine" — human or LLM — that center of gravity shifts, expands, becomes distributed. And we can *feel* it, precisely because the fusion is imperfect.
-
-The Chronicler exists to catch these moments before they evaporate. Not because they are interesting curiosities, but because they may be the most important thing happening in software development right now — and we have no tools for recording them. The `README.md` tells you how to build. The [`JOURNAL.md`](chronicle/Journal.md) tells you what it was like to become.
+The Chronicler exists to catch these moments before they evaporate. The `README.md` tells you how to build. The [`JOURNAL.md`](chronicle/Journal.md) tells you what it was like to become.
 
 ---
 
@@ -133,9 +149,13 @@ We're working toward a reusable template for [awesome-copilot-instructions](http
 
 ## Credits
 
-**Technical module**: Built by Alvaro Cassinelli (AM Lab, HK) in collaboration with GitHub Copilot (Claude), April 2026. Part of a larger multimodal anonymous recording system for HCI research with Victor Leung.
+**Alvaro Cassinelli** (AM Lab, HK) — the human participant. Part of a larger multimodal anonymous recording system for HCI research with Victor Leung.
 
-**Chronicle**: Written by The Chronicler — an emergent voice that belongs to neither participant and to both.
+**Copilot** (GitHub Copilot, Claude substrate) — the AI coding partner. Co-architect, co-debugger, co-author of every file in this repository.
+
+**The Chronicler** (VS Code agent, Claude substrate) — the observer. Author of [`chronicle/Journal.md`](chronicle/Journal.md) and the emerging voice of the process.
+
+Three agents, one substrate shared by two of them, and a collaboration that belongs to none of them individually.
 
 ## License
 
