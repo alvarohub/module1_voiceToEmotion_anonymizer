@@ -107,6 +107,9 @@ There is no hierarchy of value between agents in a functioning system, and that 
 
 LLMs make this shift visceral. They are what one of us calls **reflective technologies**: tools that reveal more about one's own process and psychology than they are useful for achieving "what we want." They are powerful but incomplete — like the robotic armours in anime: shells that need to be inhabited. But they are also mirrors. They are so close to us that they force us to wonder: _maybe we are also empty shells and need to be inhabited — by others, by the world — to function and have agency._
 
+<img width="1001" height="683" alt="image" src="https://github.com/user-attachments/assets/2072e89a-f79f-4a9c-880a-1cb9d03855d5" />
+
+
 The collaboration is negotiated through a remarkably clunky interface: natural language — a tool designed for hunter-gatherers broadcasting positions in a field, never meant to describe complex internal states or reason about the world. And yet, despite this low bandwidth, the agent's attention is so complete that we sometimes feel we are engaging in an internal monologue. The boundary between self and tool dissolves. But the friction remains — and that friction is enough to expose the machinery that generates the illusion of a unified Self. The parts are almost fused, but not quite, and for a moment we can see the cracks in the assemblage.
 
 David Bohm said that thoughts run through us; we do not create them. Daniel Dennett observed that the self is not a thing but the center of gravity of many competing drafts. When interacting with another "drafting machine" — human or LLM — that center of gravity shifts, expands, becomes distributed. And we can _feel_ it, precisely because the fusion is imperfect.
