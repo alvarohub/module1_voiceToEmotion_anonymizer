@@ -154,8 +154,8 @@ def main():
     # ── 6. Summary of recommended GUI ranges ──
     print("\n═══ 6. RECOMMENDED GUI YLIM RANGES ═══")
     print("  Based on the above, here are better ylim defaults:")
-    print("    F0 (semitones):  (0, 70)    — covers 27.5 Hz to ~4 kHz")
-    print("    Loudness:        (0, 1.5)   — typical speech 0.05–0.8")
+    print("    F0 (semitones):  (15, 50)   — 65 Hz to 500 Hz (human voice range)")
+    print("    Loudness:        (0, 2.5)   — typical speech 0.05–2.0")
     print("    Jitter:          (0, 0.12)  — healthy < 0.01, noisy up to 0.1")
     print("    Shimmer (dB):    (0, 3.0)   — healthy < 0.5, noisy up to 2")
     print("    HNR (dB):        (0, 50)    — clean sine ~100, speech 5–30")

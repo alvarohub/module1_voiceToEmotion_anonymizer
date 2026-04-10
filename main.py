@@ -15,6 +15,12 @@ Prerequisites (macOS):
 
 from __future__ import annotations
 
+# Force TkAgg BEFORE any other import — the macOS native Cocoa backend
+# conflicts with openSMILE's pre-compiled binaries (shared LLVM/Qt libs),
+# corrupting PortAudio callbacks and silently dropping audio frames.
+import matplotlib
+matplotlib.use("TkAgg")
+
 import os
 import sys
 import time
@@ -41,6 +47,9 @@ CONFIG = {
     "vad_threshold": 0.3,        # Silero VAD speech probability threshold
     "vad_min_speech_ratio": 0.1, # min fraction of chunk that must be speech
 
+    # Emotion inference — set False to isolate prosody-only for debugging
+    "enable_emotion": True,
+
     # Prosody features — extract F0, energy, etc. alongside emotion
     "extract_prosody": True,
     "prosody_lld_interval": 0.5,  # seconds between frame-level LLD extractions
@@ -56,7 +65,7 @@ CONFIG = {
     "radar_update_ms": 100,
     "radar_smoothing": 0.35,   # 0 = frozen, 1 = raw (no smoothing)
     "radar_trail": 3,          # ghosted previous frames (0 to disable)
-    "timeline_seconds": 30.0,  # scrolling timeline window
+    "timeline_seconds": 5.0,   # scrolling timeline window
 }
 
 
@@ -100,6 +109,11 @@ def inference_loop(
                 result_queue.put({"no_speech": True, "timestamp_ms": timestamp_ms})
                 print(f"[        ··] VAD {ratio:.2f} — silence", end="\r")
                 continue
+
+        # ── Skip if emotion disabled via GUI toggle ──
+        if display is not None and not display.emo_enabled:
+            time.sleep(0.1)
+            continue
 
         # ── Emotion inference ──
         try:
@@ -153,21 +167,57 @@ def prosody_lld_loop(
     stop_event: threading.Event,
     sr: int = 16000,
     interval: float = 0.5,
+    display=None,
 ) -> None:
-    """Background thread: extract 20ms-frame LLD prosody independently."""
+    """Background thread: extract 20ms-frame LLD prosody independently.
+
+    openSMILE's process_signal() is **stateless** — each call treats the
+    audio as a standalone utterance with no memory of previous calls.
+    Edge frames lose voicing confidence because the pitch tracker has no
+    context beyond the chunk boundaries, causing F0/jitter/shimmer/HNR
+    to drop to zero at every chunk edge → visible fragmentation.
+
+    Fix: read audio with padding on BOTH sides of the interest window.
+    openSMILE processes the full padded chunk (so edges have context),
+    then we trim to keep only the middle frames.
+
+        [LEFT_PAD | ──── interest (cur_interval) ──── | RIGHT_PAD]
+         discard    ← ← ← keep these frames → → →      discard
+
+    The RIGHT_PAD is audio we already displayed last iteration (slightly
+    in the past).  The cost is cur_interval/2 of extra display latency,
+    which at 0.5s interval = 0.25s — imperceptible.
+    """
     from prosody import extract_prosody_lld
+    CONTEXT_PAD = 0.25  # seconds of padding on EACH side
+
     while not stop_event.is_set():
-        time.sleep(interval)
+        cur_interval = display.prosody_lld_interval if display is not None else interval
+        time.sleep(cur_interval)
         if stop_event.is_set():
             break
-        audio = audio_capture.get_latest_audio(interval)
+        if display is not None and not display.pros_enabled:
+            continue
+        # Read padded audio: [LEFT_PAD + interest + RIGHT_PAD]
+        read_duration = CONTEXT_PAD + cur_interval + CONTEXT_PAD
+        audio = audio_capture.get_latest_audio(read_duration)
         if audio is None or len(audio) < int(sr * 0.1):
             continue
         try:
             lld = extract_prosody_lld(audio, sr=sr)
             if lld is not None:
-                lld["timestamp_ms"] = time.time() * 1000.0
-                lld["duration_s"] = interval
+                # Keep only the middle frames (discard both pads)
+                times = lld["times"]
+                total_dur = len(audio) / sr
+                keep = (times >= CONTEXT_PAD) & (times <= total_dur - CONTEXT_PAD)
+                if not keep.any():
+                    continue
+                lld["times"] = times[keep]
+                lld["frames"] = {k: v[keep] for k, v in lld["frames"].items()}
+                # Timestamp reflects the MIDDLE of the interest window
+                # (shifted back by RIGHT_PAD since we're reading older audio)
+                lld["timestamp_ms"] = (time.time() - CONTEXT_PAD) * 1000.0
+                lld["duration_s"] = cur_interval
                 prosody_queue.put(lld)
         except Exception as exc:
             print(f"[prosody-lld] {exc}", file=sys.stderr)
@@ -183,12 +233,19 @@ def main() -> None:
     csv_path = os.path.join(CONFIG["output_dir"], f"emotion_track_{ts}.csv")
 
     # ---- Load model ---------------------------------------------------------
-    print("Loading emotion model …")
-    model = EmotionModel(
-        model_name=CONFIG["model_name"],
-        device=CONFIG["device"],
-    )
-    print(f"Model ready — dimensions: {model.dimensions}")
+    if CONFIG["enable_emotion"]:
+        print("Loading emotion model …")
+        model = EmotionModel(
+            model_name=CONFIG["model_name"],
+            device=CONFIG["device"],
+        )
+        print(f"Model ready — dimensions: {model.dimensions}")
+    else:
+        # Lightweight stub so display still has dimension names
+        class _Stub:
+            dimensions = ["angry","disgusted","fearful","happy","neutral","other","sad","surprised","unknown"]
+        model = _Stub()
+        print("⚠️  Emotion model NOT loaded (enable_emotion=False)")
 
     # ---- Load VAD -----------------------------------------------------------
     vad = None
@@ -251,6 +308,7 @@ def main() -> None:
         chunk_duration=CONFIG["chunk_duration"],
         vad_threshold=CONFIG["vad_threshold"],
         vad_enabled=CONFIG["use_vad"],
+        prosody_lld_interval=CONFIG["prosody_lld_interval"],
     )
     display.set_queue(result_q)
     display.set_audio_capture(audio)
@@ -262,18 +320,22 @@ def main() -> None:
     audio.start()
     print(f"🎙  Listening … (chunk={CONFIG['chunk_duration']}s, hop={CONFIG['hop_duration']}s)")
 
-    inf_thread = threading.Thread(
-        target=inference_loop,
-        args=(audio, model, result_q, writer, stop, vad, prosody_fn),
-        kwargs={"extract_embedding": save_emb and CONFIG["save_csv"], "display": display},
-        daemon=True,
-    )
-    inf_thread.start()
+    if CONFIG["enable_emotion"]:
+        inf_thread = threading.Thread(
+            target=inference_loop,
+            args=(audio, model, result_q, writer, stop, vad, prosody_fn),
+            kwargs={"extract_embedding": save_emb and CONFIG["save_csv"], "display": display},
+            daemon=True,
+        )
+        inf_thread.start()
+    else:
+        print("⚠️  Emotion inference DISABLED (enable_emotion=False)")
 
     pros_thread = threading.Thread(
         target=prosody_lld_loop,
         args=(audio, prosody_q, stop),
-        kwargs={"sr": CONFIG["sample_rate"], "interval": CONFIG["prosody_lld_interval"]},
+        kwargs={"sr": CONFIG["sample_rate"], "interval": CONFIG["prosody_lld_interval"],
+                "display": display},
         daemon=True,
     )
     pros_thread.start()

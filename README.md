@@ -46,9 +46,9 @@ In this pilot study we take the first steps towards this larger goal. We describ
 |     | File                                              | What it is                                                                                                                 |
 | --- | ------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- |
 | 📖  | **[Journal.md](chronicle/Journal.md)**            | The living chronicle — stream-of-consciousness entries, sparks, scholarly references. Start here if you read nothing else. |
-| 💡  | **[Sparks.md](chronicle/Sparks.md)**              | Luminous asides — unexpected associations extracted from the Journal. The fireflies.                                       |
+| 💡  | **[Sparks.md](chronicle/Sparks.md)**              | Distilled crystals extracted from the raw material, compressed into a single resonant paragraph. They preserve what it *meant*. |
 | 💎  | **[Gems.md](chronicle/Gems.md)**                  | Short passages that stopped us in our tracks, with attribution.                                                            |
-| 📝  | **[notes.md](chronicle/notes.md)**                | Verbatim fragments from conversation — raw quotes too important to paraphrase.                                             |
+| 📝  | **[notes.md](chronicle/notes.md)**                | Raw verbatim fragments, unprocessed — the magnetic tape. They preserve what was *said*.                                    |
 | 🌱  | **[SpinOffs.md](chronicle/SpinOffs.md)**          | Actionable project ideas that germinated during the process.                                                               |
 |     |
 | 🔬  | **[MACHINTROPOLOGY.md](docs/MACHINTROPOLOGY.md)** | The experiment explained — what machintropology is, how to navigate the chronicle, how to run your own.                    |

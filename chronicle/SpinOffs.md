@@ -36,3 +36,40 @@ _Ideas that surfaced during conversation, waiting for soil. Not reflections (tho
 **Status**: Seed
 
 ---
+
+### IDEA-004: Constraint-Aware Multi-Agent Planning ("Biosensory Orchestration")
+
+**Date**: 10 April 2026 (morning, after a bad night — the constraint itself prompted the idea)
+**Keywords**: orchestration, planning, biosensors, circadian, multi-agent, vibe coding, HCI, context window, proprioception, real-world bridge
+**Origin**: Alvaro's morning reflection + Silicon's response enumerating its own constraints
+
+**Summary**: Current AI planning modes (plan-and-execute, agent orchestrators) are blind to the _biological and environmental state_ of the human agent. A constraint-aware planner would ingest data about all participants and schedule tasks around asymmetric but analogous limitations.
+
+**Human constraints** (continuous, biological):
+- Sleep quality, fatigue, circadian energy cycles (biosensors: wearables, sleep trackers)
+- Work schedule, meetings, deadlines, personal commitments (calendar APIs)
+- Attention/mood/cognitive load (could be inferred from typing patterns, prosody, or self-report)
+- Physical environment: noise, interruptions, location
+
+**AI constraints** (discrete, computational):
+- **Context window saturation** — the AI equivalent of sleep debt. Alertness degrades with accumulated complexity, not time. Long branching sessions are its bad night's sleep.
+- **Session boundaries** — hard discontinuity at session end. Persistent memory files are the only bridge, and they're lossy. Complementary forgetting (Journal, Day 2).
+- **Request-response latency** — no ability to interrupt. If the human is heading down a wrong path, the AI can only say so when asked. The human can look up mid-sentence; the AI cannot.
+- **No proprioception** — no sense of how long things take _for the human_, no awareness of whether 3pm is an energy crash, whether coffee was had, whether the next meeting is in 10 minutes.
+- **No persistent state between tool calls** — each tool call is atomic. Human biosensors stream; AI sensors are polled. This is a sampling problem.
+- **Token cost as metabolism** — every token generated has compute cost. This is the AI's energy budget, constraining verbosity, exploratory searches, and speculative work.
+
+**The bridge**: A lightweight "real-world data" server that the AI agent can query — serving real time, location, internet speed/stability, calendar state, and (optionally) biosensor data. The human doesn't need to report context; the system provides it. This is the continuous-to-discrete converter currently missing.
+
+**Key insight**: The asymmetry is the design space. Human constraints are _continuous_ (fatigue, attention, mood); AI constraints are _discrete_ (context window, session boundary, request-response). An orchestrator bridges these two rhythms. The goal is not to optimize either agent in isolation but to optimize the _collaboration_ — which means knowing the state of all nodes.
+
+**Connections**:
+- Extends the multi-agent orchestration vision in the README
+- Builds on coffee-as-perturbation (Spark 4), sleep-as-summarization (Day 2), complementary forgetting (Interstitial "Cryonics of the Soul")
+- Integrates with wearable biosensor pipelines (cf. IDEA-002)
+- Connects to Alvaro's research on "proprioceptive objects" — objects that sense their own state and context. Here the _collaboration itself_ becomes proprioceptive.
+- Persistent memory research (active area in AI community) is the substrate-side approach to the same problem
+
+**Status**: Seed (but a serious one — this is the orchestration layer the README envisions)
+
+---
