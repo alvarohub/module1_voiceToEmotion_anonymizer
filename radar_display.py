@@ -114,9 +114,10 @@ class RadarDisplay:
             d: collections.deque(maxlen=self._history_max) for d in dimensions
         }
         self._pros_lld_max = 6000  # ~60s at 100 frames/s
-        self._pros_lld_times: collections.deque = collections.deque(maxlen=self._pros_lld_max)
-        self._pros_lld_data: dict[str, collections.deque] = {
-            k: collections.deque(maxlen=self._pros_lld_max) for k in self.pros_keys
+        # Full-buffer replacement: store numpy arrays, not deques
+        self._pros_lld_times: np.ndarray = np.array([])
+        self._pros_lld_data: dict[str, np.ndarray] = {
+            k: np.array([]) for k in self.pros_keys
         }
         self._history_times: collections.deque = collections.deque(maxlen=self._history_max)
         self._t0: Optional[float] = None
@@ -739,41 +740,31 @@ class RadarDisplay:
         return (self._line,)
 
     def _ingest_prosody_lld(self, msg: dict) -> None:
-        """Append LLD frame data from a prosody_lld_loop message."""
-        ts_ms = msg.get("timestamp_ms", 0)
-        if self._t0 is None:
-            self._t0 = ts_ms
-        base_t = (ts_ms - self._t0) / 1000.0
-        duration = msg["duration_s"]
-        frame_times = msg["times"]
+        """Replace all LLD data with the latest full-buffer result.
+
+        The prosody_lld_loop now sends the complete openSMILE output from
+        the full audio buffer each cycle.  We replace (not append) so the
+        display always shows one coherent openSMILE analysis — no
+        cross-batch boundary artifacts.
+        """
+        wall_now = msg["wall_now"]
+        audio_dur = msg["audio_dur"]
+        frame_times = msg["times"]    # seconds from start of audio buffer
         frames = msg["frames"]
-        n_frames = len(frame_times)
 
-        # Diagnostic: count voiced F0 frames in this batch
-        f0_key = self.pros_keys[0]
-        f0_vals = frames.get(f0_key, np.array([]))
-        n_voiced = int(np.count_nonzero(f0_vals)) if len(f0_vals) > 0 else 0
-        if n_voiced > 0:
-            nz = f0_vals[f0_vals > 0]
-            hz = 27.5 * 2 ** (np.median(nz) / 12)
-            print(f"\n[F0-diag] {n_voiced}/{n_frames} voiced, "
-                  f"median {np.median(nz):.1f}st = {hz:.0f}Hz, "
-                  f"range {nz.min():.1f}-{nz.max():.1f}st")
-        else:
-            print(f"[F0-diag] 0/{n_frames} voiced (silence)", end="\r")
+        # Convert frame times to "seconds ago" (negative = past, 0 = now)
+        # A frame at time `t` in the buffer was captured `audio_dur - t` ago
+        self._pros_lld_times = frame_times - audio_dur  # all negative
 
-        for i in range(n_frames):
-            abs_t = base_t - duration + frame_times[i]
-            self._pros_lld_times.append(abs_t)
-            for k in self.pros_keys:
-                if k in frames:
-                    val = float(frames[k][i])
-                    if k in NZ_KEYS:
-                        if val <= 0.0:
-                            val = float('nan')
-                    self._pros_lld_data[k].append(val)
-                else:
-                    self._pros_lld_data[k].append(self.pros_defaults[k])
+        for k in self.pros_keys:
+            if k in frames:
+                vals = frames[k].copy()
+                if k in NZ_KEYS:
+                    vals[vals <= 0] = np.nan
+                self._pros_lld_data[k] = vals
+            else:
+                self._pros_lld_data[k] = np.full(len(frame_times),
+                                                  self.pros_defaults[k])
 
     def _update_radar(self):
         values = [self._smoothed[d] for d in self.dimensions]
@@ -821,19 +812,14 @@ class RadarDisplay:
         if not has_emo and not has_pros:
             return
 
-        # Common time reference
-        t_now = max(
-            self._history_times[-1] if has_emo else 0,
-            self._pros_lld_times[-1] if has_pros else 0,
-        )
-
         for ax in self.ax_emo_strips + self.ax_pros_strips:
             ax.set_xlim(-self._timeline_sec, 0)
 
-        # Emotion strips
+        # Emotion strips — use relative time (seconds ago)
         if has_emo:
             times = np.array(self._history_times)
-            x = times - t_now
+            t_now = times[-1]
+            x = times - t_now   # negative values = past
             for i, d in enumerate(self.dimensions):
                 y = np.array(self._history[d])
                 color = EMOTION_COLORS.get(d, DEFAULT_COLOR)
@@ -845,12 +831,11 @@ class RadarDisplay:
                 )
                 self._emo_fills[i] = [fill]
 
-        # Prosody strips (frame-level LLD)
+        # Prosody strips — times are already "seconds ago" from _ingest
         if has_pros:
-            ptimes = np.array(self._pros_lld_times)
-            px = ptimes - t_now
+            px = self._pros_lld_times   # already negative (seconds ago)
             for j, key in enumerate(self.pros_keys):
-                py = np.array(self._pros_lld_data[key])
+                py = self._pros_lld_data[key]
                 baseline = self.pros_ylims[j][0]
                 self._pros_lines[j].set_data(px, py)
                 for artist in self._pros_fills[j]:

@@ -211,9 +211,9 @@ def _bridge_nz_gaps(frames: dict[str, np.ndarray], max_gap: int = _MAX_NZ_GAP) -
 # voicing.  Built-in laptop mics often produce very quiet audio
 # (peak < 0.1), causing the voicing probability to stay below threshold
 # and returning F0 = 0 even on clear speech.  We peak-normalize to a
-# target level before processing.  This does NOT affect loudness_sma3
-# (which is energy-relative), but it brings F0/jitter/shimmer/HNR into
-# their operating range.
+# target level before processing.  Note: this DOES shift loudness_sma3
+# proportionally, but with the sliding-window approach (3s buffers)
+# the peak is stable enough that loudness stays consistent across cycles.
 _OPENSMILE_TARGET_PEAK = 0.5   # normalize audio peak to this level
 _OPENSMILE_MIN_PEAK = 0.01     # below this, don't amplify (pure noise)
 
@@ -252,29 +252,17 @@ def extract_prosody_lld(audio: np.ndarray, sr: int = 16000) -> dict | None:
     Returns dict with:
         'times'  — np.array of frame midpoint times (seconds from chunk start)
         'frames' — dict of {column_name: np.array} for all 25 LLD features
-    Returns None if openSMILE is unavailable.
+    Returns None if openSMILE is unavailable or audio is too quiet.
     """
     if not HAS_OPENSMILE:
         return None
-    # Diagnostic: check what audio is actually reaching openSMILE
-    peak = float(np.max(np.abs(audio)))
-    rms = float(np.sqrt(np.mean(audio ** 2)))
-    print(f"[LLD-audio] {len(audio)} samples ({len(audio)/sr:.2f}s), "
-          f"peak={peak:.5f}, rms={rms:.5f}", end="")
     audio = _normalize_for_opensmile(audio)
-    peak2 = float(np.max(np.abs(audio)))
-    print(f" → norm peak={peak2:.3f}")
-    # Save first voiced chunk for offline verification
-    _maybe_save_diag_wav(audio, sr, peak)
     smile = _get_smile_lld()
     df = smile.process_signal(audio, sampling_rate=sr)
     starts = np.array([t.total_seconds() for t in df.index.get_level_values("start")])
     ends = np.array([t.total_seconds() for t in df.index.get_level_values("end")])
     times = (starts + ends) / 2.0
     frames = {col: df[col].values.astype(np.float32) for col in df.columns}
-    # Bridge short voicing gaps in sma3nz features so that continuous
-    # phonation renders as a continuous contour rather than fragments.
-    frames = _bridge_nz_gaps(frames)
     return {"times": times, "frames": frames}
 
 
