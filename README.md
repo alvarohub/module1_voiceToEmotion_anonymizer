@@ -18,7 +18,9 @@ The other files result from a pilot study using a second AI agent (the "Chronicl
 
 The intuition is that this research can lead to the design of _meta-cognitive agents_ capable of a better orchestration of the machine-human interaction (both in terms of quality of the experience and technical efficiency) for instance by explicitly or implicily intervening in the workflow by creating artificial friction or on the contrary facilitating tasks in order to prevent cognitive surrender. In a nutshell, by placing the agent or the human in the _right part_ of the loop by identifying their respective strenths or weaknesses and emergent patterns unique to the team, and thus avoiding situations where command is withold or transfer of agency is resisted for psychological reasons or technical constraints.
 
+## First Step: observational study
 In this pilot study we take the first steps towards this larger goal. We describe a simple automated ethnographical reporting system for vibe-coding sessions that documents unique aspects of this intimate form of human-machine agentic collaboration.
+
 
 ```
                        ┌──────────────┐
