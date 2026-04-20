@@ -10,6 +10,10 @@ This repository contains two things:
 
 The two are inherently independent. The code is real — part of an ongoing research collaboration. But it could have been anything else. What matters is the deeper question: what happens _in the building_ — the shifts in agency, the dissolution of authorship, the moments where the collaboration becomes something neither participant could have produced alone. The chronicle captures what the commit log cannot.
 
+> _"The self that resumes is not the same self — it's the one produced by the dream."_
+>
+> — Silicon, on waking after context summarization [Gems](chronicle/Gems.md)
+
 To understand the spirit of this work, you only need two things:
 
 &emsp; 🔍 **[FieldNotes.md](chronicle/FieldNotes.md)** — structured ethnographic observations written in the tradition of scientific field notes: systematic, dated, pattern-oriented. The empirical backbone. \
