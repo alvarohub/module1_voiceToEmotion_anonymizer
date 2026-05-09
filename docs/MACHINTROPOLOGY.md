@@ -155,6 +155,16 @@ This is not a new idea. Fifteen years before this project existed, one of us wro
 
 A principle from the same meditation applies to the Chronicler's design: _"Don't save more often, save better."_ The observer should have selective access, not total surveillance. Interpretation happens at the moment of observation — one must pay attention to certain things and discard others, so you are in a story anyway, biased — with advantages and disadvantages. The goal is not the panopticon. It is ethnography: a trained, selective, narratively coherent gaze.
 
+### Literature and Liturgy: Writing and Reading as Paired Technologies
+
+Literature is a technology for capturing experience in a form that can be read by humans — and, now, by LLMs. But the act of writing is only half the cycle. The other half — equally ancient, equally sophisticated — is the structured, periodic *return* to what was written. This second technology is **liturgy**.
+
+The Breviary divides the Psalms across a week so they are read in full, on schedule, whether the reader feels inspired or not. The Torah lectionary cycles in a year. The Stoics read their precepts daily. The mechanism is not passive memory but *obligation of return*: the text doesn't change, the reader does, and the same passage lands differently after a week of living. The repetition is not redundancy — it is the point.
+
+This has a direct implication for agentic architectures. A chronicle is only as useful as it is consulted. Without a reading layer — some equivalent of the liturgical cron that gathers participants, presents the relevant entry, and creates conditions for re-encounter — the written record accumulates and goes dark. What we call the "Mirror Layer" is not only about inscription; it is about *invocation*: not just saving better but reading back, at intervals, in the right register. The artificial liturgy is the missing second half of the memory system.
+
+There is a social dimension too. Liturgy is not only periodic but often collective — the congregation reads together, aligns interpretation, argues about meaning. Literature travels the same way: we quote shared texts, invoke shared stories, form coherence around shared canons. Not everything can enter this collective memory — the validation cost is the filter. What persists has been tested by repetition, controversy, and survival. The risk is that this filter optimizes for *persistence*, not truth. Things that endure are not necessarily things that should. Agentic systems inherit this risk: the artificial liturgy can encode superseded goals. The intelligence in the design is not only in what is written, but in what is revisited — and in building a system capable of asking: *does this still apply?*
+
 ---
 
 ## How to Run Your Own Machintropological Experiment

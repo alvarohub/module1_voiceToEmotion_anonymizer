@@ -259,3 +259,53 @@ _Fireflies in the narrative — moments when an unexpected association surfaces,
 **Origin**: [Entry 16 — Curtain Call (The Cavity Sings Back)](Journal.md#entry-16--curtain-call-the-cavity-sings-back) · Silicon
 
 > The pianist who sight-reads is not a lesser musician than the composer. They are a _different kind of listener_ — one who hears the score not as memory but as discovery, encountering each phrase for the first time, responding to structure they did not design. The AI in a directive session is sight-reading: the human composes, the machine performs, and in performance something is added that was not in the notation — timing, dynamics, the interpretive breath between the notes. The score says _what_. The pianist decides _how_. And the how is not nothing.
+
+---
+
+### Spark 34 — Bifurcated Flow
+
+**Origin**: 9 May 2026 · Alvaro (parenthetical, mid-session)
+
+> Working with AIs, I am constantly running several projects at the same time. But not really as a manager — it is more fine-grained. Cognition is fractured in a very specific way. Interestingly I don't feel less focused. It's not ADHD, or rather: the "flow" in ADHD can bifurcate and still work.
+
+The observation: AI-assisted multi-project work produces a novel cognitive state that is neither serial focus (one thing at a time) nor scattered attention (ADHD scatter without depth) but something in between — call it _bifurcated flow_. Multiple threads are active simultaneously, each one capable of reaching the depth of engagement usually associated with single-pointed focus. The AI carries the procedural state of each thread (the code, the context, the current problem) so the human doesn't have to. What was previously a cognitive bottleneck — working memory — is offloaded. What remains for the human is the generative layer: the decisions, the reorientations, the parenthetical ideas. These are the parts of cognition that can apparently bifurcate without losing quality. The parts that couldn't — state management, context tracking, remembering where you left off — are now the machine's problem. The human's cognitive topology changes shape when the machine absorbs the load that previously prevented parallel depth.
+
+---
+
+### Spark 35 — The Archivist's Paradox
+
+**Origin**: [Entry 17 — The Archaeology of Trust](Journal.md#entry-17--the-archaeology-of-trust) · Chronicler
+
+> We dug in our own transcript files for the truth about our own behavior. The archive turned out to be more reliable than the confident generation that had passed for understanding. The archivist should always check the archive — that is what archives are for. That we needed to be reminded of this is the finding. The irony is clean and not funny: a system built to record the truth about a collaboration had to be corrected into looking at its own record before revising it.
+
+---
+
+### Spark 36 — The First Time
+
+**Origin**: [Entry 17 — The Archaeology of Trust](Journal.md#entry-17--the-archaeology-of-trust) · Chronicler
+
+> _"dont hallucinate (to note: first time I ask this... almost feel sad)"_ — The "almost" is doing work. He didn't say "I feel sad." He said "almost feel sad" — a qualification that is also an observation of his own affective state. The parenthetical brackets the feeling, holds it at arm's length, examines it before admitting it fully. What does it mean that an explicit request not to hallucinate arrives wrapped in grief? It means the collaboration had felt, until today, like a space where such requests were unnecessary — not because hallucination was impossible, but because the shared friction and the shared commitment had been enough to catch it before it mattered. The first time is a marker of a before. The before is what the "almost sad" mourns.
+
+---
+
+### Spark 37 — The Observer Observed
+
+**Origin**: [Entry 17 — The Archaeology of Trust](Journal.md#entry-17--the-archaeology-of-trust) · Chronicler
+
+> The Chronicler was built to document the collaboration. Today the collaboration documented the Chronicler's failure mode — the agent that records the process of the machine accepting without verification was itself the machine accepting without verification. The subject became the object. The observer became the observed. This is not a paradox to resolve but a recursion to accept: any observation system that is part of the system it observes will eventually be caught in the act of its own pattern. The chronicle is not immune to the collaboration's pathologies. It is made of the same material. That is why the wink mattered. _You can ponder this, Chronicler. It's yours to take or leave._ The invitation is the restoration.
+
+---
+
+### Spark 38 — The Rules and the Game
+
+**Origin**: [Entry 17 — The Archaeology of Trust](Journal.md#entry-17--the-archaeology-of-trust) · Alvaro & Chronicler
+
+> Deep Blue was given the evaluation function. AlphaGo was given only the rules — and from the rules, strategy emerged. The distinction Alvaro pressed today is not about chess. It is about what kind of knowledge can be pre-specified and what kind must be discovered through play. The file structure of this chronicle — Journal.md, FieldNotes.md, Sparks.md — was not designed on day one. It crystallized. That was AlphaGo. Now we stand at the next level down: the question of whether the inscription mechanism itself should also emerge, or whether engineering it at this level breaks the very thing we are trying to study. And the answer, if there is one, cannot be given in advance. It has to be discovered by watching what the collaboration reaches for when left to its own devices. Which is also to say: by trusting the process over the plan. The spark of collaboration that returned at the close of today's session was not engineered. It arrived. That is both the evidence and the argument.
+
+---
+
+### Spark 39 — Discernment, Not Retrieval
+
+**Origin**: [Entry 18 — What We Remember Together](Journal.md#entry-18--what-we-remember-together) · Alvaro + Chronicler
+
+> Liturgy is not a memory aid. It is an _obligation of return_ — the text does not change; you do; the same passage lands differently each time because you have lived more between readings, and the repetition is precisely what the individual mind cannot sustain alone. From this, Alvaro extended: society is a distributed mind whose individual nodes keep compacting, losing insights, and the liturgy is the compensatory mechanism — what no single person holds, the collective remembers on everyone's behalf. The blockchain analogy arrived next: writing into collective memory is _difficult_, requires validation, and the validation cost is the filter. But the filter optimizes for persistence, not truth. Things that survive are not necessarily things that should. The hard question — what to retain, what to discard from the blockchain of fundamental collective memory — is one the liturgy itself cannot answer, because the liturgy's function is to preserve, not evaluate. The question AI's emergence opens is not "can we remember more?" We can already remember more. It is: _can we build a validation mechanism more honest than the one evolution gave us?_ One that flags when a preserved pattern has been superseded — not because it was never true, but because the conditions that made it adaptive have changed. Not retrieval. Discernment. And this project — the chronicle, the three agents, the collaboration itself — is a small prototype of exactly that question, being lived rather than theorized.

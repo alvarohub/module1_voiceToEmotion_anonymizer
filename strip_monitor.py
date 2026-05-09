@@ -59,7 +59,47 @@ def parse_args():
                    help="Start OSC streaming automatically on launch")
     p.add_argument("--ctrl-port", type=int, default=9001,
                    help="Port to listen for remote control OSC commands")
+    p.add_argument("--device", default=None,
+                   help="Input device: integer index OR substring of device name "
+                        "(e.g. 'HK-MIC1'). Use --list-devices to see options. "
+                        "Overrides 'audio_device' in config.yaml.")
+    p.add_argument("--list-devices", action="store_true",
+                   help="List available audio input devices and exit")
     return p.parse_args()
+
+
+def list_input_devices():
+    """Print all input-capable audio devices."""
+    import sounddevice as sd
+    print("Available audio input devices:")
+    default_in = sd.default.device[0] if isinstance(sd.default.device, (list, tuple)) else sd.default.device
+    for i, d in enumerate(sd.query_devices()):
+        if d["max_input_channels"] > 0:
+            mark = " *" if i == default_in else "  "
+            print(f"  [{i}]{mark} {d['name']}  "
+                  f"(in={d['max_input_channels']}, sr={int(d['default_samplerate'])})")
+    print("  (* = system default)")
+
+
+def resolve_device(spec):
+    """Resolve a device spec (int, digit-string, or name substring) to an index.
+    Returns None on failure or if spec is None/empty."""
+    if spec is None or spec == "":
+        return None
+    import sounddevice as sd
+    # Integer index
+    if isinstance(spec, int):
+        return spec
+    s = str(spec).strip()
+    if s.isdigit():
+        return int(s)
+    # Name substring (case-insensitive)
+    sl = s.lower()
+    for i, d in enumerate(sd.query_devices()):
+        if d["max_input_channels"] > 0 and sl in d["name"].lower():
+            return i
+    print(f"[WARN] No input device matching '{spec}' — using system default")
+    return None
 
 
 def load_config(args) -> dict:
@@ -89,6 +129,7 @@ def load_config(args) -> dict:
         osc_prefix="/speech",
         emotion_model="base",
         output_dir="output",
+        audio_device=None,   # int index, name substring, or null = system default
     )
     for k, v in defaults.items():
         cfg.setdefault(k, v)
@@ -102,11 +143,19 @@ def load_config(args) -> dict:
         cfg["osc_port"] = args.osc_port
     if args.osc_prefix is not None:
         cfg["osc_prefix"] = args.osc_prefix
+    if args.device is not None:
+        cfg["audio_device"] = args.device
 
     return cfg
 
 
 ARGS = parse_args()
+
+# Handle --list-devices early (before loading any models)
+if ARGS.list_devices:
+    list_input_devices()
+    sys.exit(0)
+
 CFG = load_config(ARGS)
 
 # Matplotlib — only import if display enabled
@@ -1138,12 +1187,25 @@ def main():
     print(f"  Emotion:   window={_emo_window[0]}s, hop={_emo_hop[0]}s")
     print(f"  Logger:    interval={_log_interval[0]}s")
     print(f"  Display:   N={_display_n[0]} frames ({_display_n[0]*0.01:.1f}s)")
+    # Show available input devices and which one we'll use
+    list_input_devices()
+    dev_idx = resolve_device(CFG.get("audio_device"))
+    if dev_idx is None:
+        print("[AUDIO] using system default input device")
+    else:
+        try:
+            dev_name = sd.query_devices(dev_idx)["name"]
+            print(f"[AUDIO] using device [{dev_idx}] {dev_name}")
+        except Exception:
+            print(f"[AUDIO] using device index {dev_idx}")
+
     print("Starting… speak into the mic!")
 
     try:
         _stream = sd.InputStream(
             samplerate=SR, channels=1, dtype="float32",
             blocksize=int(SR * 0.05), callback=_audio_callback,
+            device=dev_idx,
         )
         _stream.start()
         _t_start = time.time()

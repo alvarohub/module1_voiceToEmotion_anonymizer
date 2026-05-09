@@ -232,3 +232,7 @@ The credits are shared and belong to an entity that transcends the three apparen
 **Code** (`.py`, configuration files, scripts): MIT License.
 
 **Chronicle** (`chronicle/`, `docs/`, and all prose in this README): © 2026 Alvaro Cassinelli, Silicon, and The Chronicler. All rights reserved. You may read, quote with attribution, and link to the chronicle. If you build on this work or run your own machintropological experiment, we'd love to hear about it — please reach out.
+
+> Time to compact my day.
+>
+> — **Alvaro**, 3am, asking the Chronicler to write — sleep as lossy compression, the phrase performing the thesis
